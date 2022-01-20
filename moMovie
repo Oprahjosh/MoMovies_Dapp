@@ -1,0 +1,27 @@
+pragma solidity >0.7.0 <= 0.9.0;
+
+contract mappingAssignment {
+
+    struct Movie {
+        string title;
+        string director;
+    }
+
+    //mapping(uint => Movie) public movie ;
+    mapping(address => mapping(uint => Movie)) movie;
+    Movie myMovies;
+
+    function addMovie(uint movie_id, string memory movieTitle, string memory movieDirector) public {
+        movie[msg.sender][movie_id] = Movie( movieTitle , movieDirector);
+        
+         }
+    function getMovie(uint movie_id) public view returns(Movie memory){
+       return movie[msg.sender][movie_id];
+    }
+    function updateMovie(uint movie_id, string memory updateTitle, string memory updateDirector) public{
+      movie[msg.sender][movie_id] = Movie(updateTitle,updateDirector);
+    }
+    function deleteMovie(uint movie_id) public {
+        delete movie[msg.sender][movie_id];
+    }
+}
